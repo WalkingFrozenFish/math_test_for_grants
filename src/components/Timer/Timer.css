@@ -1,0 +1,12 @@
+.Timer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.Timer__text {
+    font-size: 30px;
+}

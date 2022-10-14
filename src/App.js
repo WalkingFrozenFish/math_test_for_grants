@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from "react";
+import Questionnaire from "./containers/Questionnaire/Questionnaire";
+import StartPage from "./containers/StartPage/StartPage";
+
+const checkIsStarted = JSON.parse(localStorage.getItem('att_st_btn') || 'false')
+const milliseconds = localStorage.getItem('att_mill') || '1000'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [isStarted, setIsStarted] = useState(checkIsStarted)
+    const [isAvailable, setIsAvailable] = useState(milliseconds && parseInt(milliseconds) > 0)
+    const stopAvailable = () => {
+        setIsAvailable(false)
+    }
+    const clickHandler = () => {
+        setIsStarted(true)
+        localStorage.setItem('att_st_btn', 'true')
+    }
+
+    return (
+        <div>
+            {!isStarted && isAvailable ? <StartPage
+                click={clickHandler}
+            /> : ''}
+            {isStarted && isAvailable ? <Questionnaire
+                stop={stopAvailable}
+            /> : ''}
+        </div>
+    );
 }
 
 export default App;

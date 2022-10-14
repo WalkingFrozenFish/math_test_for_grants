@@ -1,0 +1,20 @@
+.QuestionItem {
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+.QuestionItem__number {
+    color: red;
+}
+.QuestionItem__imageFrame {}
+.QuestionItem__image {}
+.QuestionItem__text {
+    font-size: 20px;
+    color: black;
+}
+.QuestionItem__input {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
