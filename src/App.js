@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Questionnaire from "./containers/Questionnaire/Questionnaire";
 import StartPage from "./containers/StartPage/StartPage";
 

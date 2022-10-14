@@ -36,7 +36,7 @@ const Timer = (props) => {
                 clearInterval(interval)
                 localStorage.setItem('att_mill', '0')
             }
-        }, 10)
+        }, 1000)
 
         return () => {
             clearInterval(interval)
