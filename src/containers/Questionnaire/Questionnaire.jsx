@@ -3,6 +3,7 @@ import './Questionnaire.css'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import {questions} from "../../constants/questions";
 import Timer from "../../components/Timer/Timer";
+import axios from "axios";
 
 
 const Questionnaire = (props) => {
@@ -25,13 +26,22 @@ const Questionnaire = (props) => {
         localStorage.setItem('att_ans', JSON.stringify(answers))
     }
 
-    const sendData = () => {
-        const data = {
-            answers,
-            name: JSON.parse(localStorage.getItem('us_inf'))['name'],
-            surname: JSON.parse(localStorage.getItem('us_inf'))['surname']
+    const sendData = async() => {
+        try {
+            const data = {
+                answers,
+                name: JSON.parse(localStorage.getItem('us_inf'))['name'],
+                surname: JSON.parse(localStorage.getItem('us_inf'))['surname']
+            }
+            await axios.post('http://167.235.52.163:8000/results', data , {
+                headers: {
+                    'ApiKey': 'jx4tNjQkG8VhNL16'
+                }
+            })
+        } catch(err) {
+            console.log(err)
         }
-        console.log(data)
+
     }
 
     return (
