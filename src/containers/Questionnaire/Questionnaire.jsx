@@ -9,6 +9,11 @@ const Questionnaire = (props) => {
 
     const [answers, setAnswers] = useState(Object.assign({}, [...Array(questions.length)].map(() => '')))
 
+    useEffect( () => {
+        const answersStorage = JSON.parse(localStorage.getItem('att_ans')) || answers
+        setAnswers(answersStorage)
+    }, [])
+
     const changeHandler = (e) => {
         const {name, value} = e.target
         setAnswers(prevState => {
@@ -16,22 +21,9 @@ const Questionnaire = (props) => {
         })
     }
 
-   
-
-    useEffect(() => {
-        const answersStorage = JSON.parse(localStorage.getItem('att_ans') || '{}')
-        if (answersStorage['1']) {
-            Object.keys(answersStorage).forEach((key) => {
-                setAnswers(prevState => {
-                    return {...prevState, [key]: answersStorage[key]}
-                })
-            })
-        }
-    }, [])
-
-    useEffect(() => {
+    const saveDataToLs = () => {
         localStorage.setItem('att_ans', JSON.stringify(answers))
-    }, [answers])
+    }
 
     const sendData = () => {
         const data = {
@@ -55,6 +47,7 @@ const Questionnaire = (props) => {
                     question_text ={el.question_text}
                     name ={el.name}
                     change = {changeHandler}
+                    keyup = {saveDataToLs}
                     value={answers[el.name]}
                 />
             })}
