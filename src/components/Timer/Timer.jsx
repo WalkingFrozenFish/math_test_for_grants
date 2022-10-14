@@ -41,7 +41,7 @@ const Timer = (props) => {
         return () => {
             clearInterval(interval)
         }
-    } )
+    }, [])
 
     return (
         <div className={'Timer'}>
