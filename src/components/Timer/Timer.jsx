@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './Timer.css'
+import axios from "axios";
 
 const defaultMinutes = 30
 const defaultMilliseconds = defaultMinutes * 60 * 1000
@@ -9,6 +10,7 @@ let interval = null
 window.addEventListener('load', () => {
     localStorage.setItem('att_mill', (milliseconds - 1000) + '')
 })
+
 
 const Timer = (props) => {
 
@@ -21,8 +23,9 @@ const Timer = (props) => {
     const [minutes, setMinutes] = useState(min < 10 ? '0' + min : min)
     const [seconds, setSeconds] = useState(sec < 10 ? '0' + sec : sec)
 
+
     useEffect(() => {
-        interval = setInterval(() => {
+        interval = setInterval(async () => {
             milliseconds -= 1000
             const min = Math.floor(milliseconds / 60 / 1000)
             setMinutes(min < 10 ? '0' + min : min)
@@ -30,6 +33,20 @@ const Timer = (props) => {
             setSeconds(sec < 10 ? '0' + sec : sec)
             localStorage.setItem('att_mill', milliseconds)
             if (milliseconds <= 0) {
+                try {
+                    const data = {
+                        answers: JSON.parse(localStorage.getItem('att_ans')),
+                        name: JSON.parse(localStorage.getItem('us_inf'))['name'],
+                        surname: JSON.parse(localStorage.getItem('us_inf'))['surname']
+                    }
+                    await axios.post('http://167.235.52.163:8000/results', data , {
+                        headers: {
+                            'ApiKey': 'jx4tNjQkG8VhNL16'
+                        }
+                    })
+                } catch(err) {
+                    console.log(err)
+                }
                 setMinutes('00')
                 setSeconds('00')
                 props.stop()
