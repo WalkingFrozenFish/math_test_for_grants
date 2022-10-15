@@ -38,6 +38,8 @@ const Questionnaire = (props) => {
                     'ApiKey': 'jx4tNjQkG8VhNL16'
                 }
             })
+            alert('Ответы отправлены удачно!')
+            props.stop()
         } catch(err) {
             console.log(err)
         }
