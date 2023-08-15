@@ -34,17 +34,18 @@ const Timer = (props) => {
             localStorage.setItem('att_mill', milliseconds)
             if (milliseconds <= 0) {
                 try {
-                    const data = {
-                        answers: JSON.parse(localStorage.getItem('att_ans')),
-                        name: JSON.parse(localStorage.getItem('us_inf'))['name'],
-                        surname: JSON.parse(localStorage.getItem('us_inf'))['surname']
-                    }
-                    await axios.post('http://167.235.52.163:8000/results', data , {
-                        headers: {
-                            'ApiKey': 'jx4tNjQkG8VhNL16'
-                        }
-                    })
-                } catch(err) {
+                    console.log("End time")
+                    // const data = {
+                    //     answers: JSON.parse(localStorage.getItem('att_ans')),
+                    //     name: JSON.parse(localStorage.getItem('us_inf'))['name'],
+                    //     surname: JSON.parse(localStorage.getItem('us_inf'))['surname']
+                    // }
+                    // await axios.post('http://167.235.52.163:8000/results', data , {
+                    //     headers: {
+                    //         'ApiKey': 'jx4tNjQkG8VhNL16'
+                    //     }
+                    // })
+                } catch (err) {
                     console.log(err)
                 }
                 setMinutes('00')
@@ -62,7 +63,8 @@ const Timer = (props) => {
 
     return (
         <div className={'Timer'}>
-            <span className={'Timer__text'}>{minutes}</span><span className={'Timer__text'}>:</span><span className={'Timer__text'}>{seconds}</span>
+            <span className={'Timer__text'}>{minutes}</span><span className={'Timer__text'}>:</span><span
+            className={'Timer__text'}>{seconds}</span>
         </div>
     )
 }
